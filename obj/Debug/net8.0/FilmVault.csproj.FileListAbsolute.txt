@@ -177,3 +177,4 @@ c:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\client\package.
 c:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\client\tsconfig.app.json
 c:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\client\tsconfig.json
 c:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\client\tsconfig.node.json
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVault.sourcelink.json
