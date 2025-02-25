@@ -21,7 +21,6 @@ namespace FilmVault.Services
         {
             var url = $"https://api.themoviedb.org/3/movie/{movieId}?api_key={_apiKey}";
             var response = await _httpClient.GetAsync(url);
-
             if (!response.IsSuccessStatusCode)
             {
                 return null;
