@@ -1,6 +1,5 @@
-const API_BASE_URL = "https://localhost:7170/api/movies"; // Use HTTPS and port 7170
+const API_BASE_URL = "https://localhost:7170/api/movies";
 
-// Define the Movie type
 interface Movie {
   id: number;
   title: string;
@@ -11,24 +10,17 @@ interface Movie {
   fullPosterPath: string;
 }
 
-// Function to fetch movie by ID with proper TypeScript typing
 export const fetchMovieById = async (
   movieId: number
 ): Promise<Movie | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/${movieId}`, {
-      method: "GET",
-      mode: "cors", // Ensures request respects CORS
-      credentials: "include", // If you're using authentication (cookies, tokens)
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
+    const response = await fetch(`${API_BASE_URL}/${movieId}`);
+    if (!response.ok)
       throw new Error(`Failed to fetch movie data: ${response.statusText}`);
-    }
 
     const data = await response.json();
+
+    console.log("API Response:", data);
 
     return {
       id: data.id,

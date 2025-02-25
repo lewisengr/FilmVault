@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
-import { fetchMovieById } from "../services/movieService.ts";
+import { useEffect, useState } from "react";
+import { fetchMovieById } from "../services/movieService";
 
-// Define the movie type
 interface Movie {
   id: number;
   title: string;
@@ -12,7 +11,6 @@ interface Movie {
   fullPosterPath: string;
 }
 
-// Define the props type
 interface MovieDetailsProps {
   movieId: number;
 }
@@ -22,34 +20,37 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movieId }) => {
 
   useEffect(() => {
     const getMovie = async () => {
-      const data = await fetchMovieById(movieId);
-      setMovie(data);
+      const movieData = await fetchMovieById(movieId);
+      if (movieData) {
+        setMovie(movieData);
+      }
     };
+
     getMovie();
   }, [movieId]);
 
-  if (!movie)
-    return <p className="text-center text-white">Loading movie details...</p>;
-
   return (
-    <div className="max-w-lg mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-center">{movie.title}</h2>
-      {movie.fullPosterPath && (
-        <img
-          src={movie.fullPosterPath}
-          alt={movie.title}
-          className="w-full rounded-lg mt-4"
-        />
+    <div>
+      {movie ? (
+        <>
+          <h2>{movie.title}</h2>
+          <p>
+            <strong>Release Date:</strong> {movie.releaseDate || "N/A"}
+          </p>
+          <p>
+            <strong>Rating:</strong>{" "}
+            {movie.voteAverage ? movie.voteAverage.toFixed(1) : "N/A"}
+          </p>
+          <p>{movie.overview}</p>
+          {movie.fullPosterPath ? (
+            <img src={movie.fullPosterPath} alt={movie.title} />
+          ) : (
+            <p>No poster available</p>
+          )}
+        </>
+      ) : (
+        <p>Loading movie details...</p>
       )}
-      <p className="mt-4">
-        <strong>Release Date:</strong> {movie.releaseDate || "N/A"}
-      </p>
-      <p>
-        <strong>Rating:</strong> {movie.voteAverage} / 10
-      </p>
-      <p className="mt-2">
-        <strong>Overview:</strong> {movie.overview}
-      </p>
     </div>
   );
 };

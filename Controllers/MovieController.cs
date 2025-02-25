@@ -26,5 +26,23 @@ namespace FilmVault.Controllers
             }
             return Ok(movie);
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Movie>>> SearchMovies([FromQuery] string query)
+        {
+            var movies = await _tmdbService.SearchMoviesAsync(query);
+            if (movies == null || movies.Count == 0)
+            {
+                return NotFound(new { message = "No movies found" });
+            }
+            return Ok(movies);
+        }
+
+        [HttpGet("popular")]
+        public async Task<ActionResult<IEnumerable<Movie>>> GetPopularMovies()
+        {
+            var movies = await _tmdbService.GetPopularMoviesAsync();
+            return Ok(movies);
+        }
     }
 }
