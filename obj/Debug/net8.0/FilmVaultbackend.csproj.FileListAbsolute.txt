@@ -1,0 +1,7 @@
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVaultbackend.csproj.AssemblyReference.cache
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVaultbackend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVaultbackend.AssemblyInfoInputs.cache
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVaultbackend.AssemblyInfo.cs
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVaultbackend.csproj.CoreCompileInputs.cache
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVaultbackend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Debug\net8.0\FilmVaultbackend.MvcApplicationPartsAssemblyInfo.cache
