@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FilmVault")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+574b56736f93ed067a140e0ab2cf1c6aacc697f1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af42525f3db06e26213d48f9553b0fcc9af60a20")]
 [assembly: System.Reflection.AssemblyProductAttribute("FilmVault")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FilmVault")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
