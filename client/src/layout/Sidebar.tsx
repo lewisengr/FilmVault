@@ -22,6 +22,14 @@ export const Sidebar = () => {
           />
         </Link>
 
+        <Link to="/searchall" className="w-full flex justify-center">
+          <NavigationItem
+            icon="/src/assets/SearchIcon.png"
+            label="Find Movies"
+            isActive={currentPath === "/searchall"}
+          />
+        </Link>
+
         <Link to="/settings" className="w-full flex justify-center">
           <NavigationItem
             icon="/src/assets/Settings.png"
