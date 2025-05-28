@@ -7,14 +7,9 @@ namespace FilmVault.Controllers
 {
     [Route("api/movies")]
     [ApiController]
-    public class MovieController : ControllerBase
+    public class MovieController(TMDBService tmdbService) : ControllerBase
     {
-        private readonly TMDBService _tmdbService;
-
-        public MovieController(TMDBService tmdbService)
-        {
-            _tmdbService = tmdbService;
-        }
+        private readonly TMDBService _tmdbService = tmdbService;
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovieById(int id)
@@ -31,11 +26,9 @@ namespace FilmVault.Controllers
         public async Task<ActionResult<IEnumerable<Movie>>> SearchMovies([FromQuery] string query)
         {
             var movies = await _tmdbService.SearchMoviesAsync(query);
-            if (movies == null || movies.Count == 0)
-            {
-                return NotFound(new { message = "No movies found" });
-            }
-            return Ok(movies);
+
+            Console.WriteLine($"[Controller] Returning {movies?.Count} movies");
+            return Ok(movies ?? new List<Movie>());
         }
 
         [HttpGet("popular")]

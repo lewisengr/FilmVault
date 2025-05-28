@@ -8,8 +8,7 @@ namespace FilmVault.Models
         [EmailAddress]
         public required string Email { get; set; }
         [Required]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Password must be at least 3 characters.")]
         public required string Password { get; set; }
-
     }
 }

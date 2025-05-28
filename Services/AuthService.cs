@@ -11,29 +11,19 @@ using FilmVault.Data;
 
 namespace FilmVault.Services
 {
-    public class AuthService
+    public class AuthService(ApplicationDbContext dbContext, IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
-        private readonly ApplicationDbContext _dbContext;
-        public AuthService(ApplicationDbContext dbContext, IConfiguration configuration)
-        {
-            _configuration = configuration;
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        }
-
+        private readonly IConfiguration _configuration = configuration;
+        private readonly ApplicationDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         // Register a new user
         public AuthResponse Register(AddUserDto request)
         {
             // Check if user already exists
             if (_dbContext.Users.Any(u => u.Email == request.Email))
-            {
                 throw new Exception("User with this email already exists");
-            }
 
             if (string.IsNullOrEmpty(request.Password))
-            {
                 throw new Exception("Password cannot be empty.");
-            }
 
             // Create a new User object
             var user = new User
@@ -55,10 +45,9 @@ namespace FilmVault.Services
         public AuthResponse? Login(AuthRequest request)
         {
             var user = _dbContext.Users.FirstOrDefault(u => u.Email == request.Email);
-            if (string.IsNullOrEmpty(request.Password) || user == null || !VerifyPassword(request.Password, user.PasswordHash))
-            {
+            if (string.IsNullOrEmpty(request.Password) || user == null || string.IsNullOrEmpty(user.PasswordHash) || !VerifyPassword(request.Password, user.PasswordHash))
                 return null;
-            }
+
             var token = GenerateJwtToken(user);
             return new AuthResponse { Token = token };
         }
@@ -74,9 +63,7 @@ namespace FilmVault.Services
 
             var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
             if (string.IsNullOrEmpty(secretKey))
-            {
                 throw new ArgumentNullException("JWT_SECRET_KEY is not set.");
-            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -114,10 +101,11 @@ namespace FilmVault.Services
             // Store salt and hash together (Base64 encoded)
             return Convert.ToBase64String(salt.Concat(hash).ToArray());
         }
+
         // Verify hashed password
         public bool VerifyPassword(string enteredPassword, string storedHash)
         {
-            if (string.IsNullOrEmpty(enteredPassword)) { return false; }
+            if (string.IsNullOrEmpty(enteredPassword)) return false;
 
             byte[] storedBytes = Convert.FromBase64String(storedHash);
             byte[] salt = storedBytes.Take(16).ToArray();

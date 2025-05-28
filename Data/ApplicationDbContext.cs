@@ -3,13 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FilmVault.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-
-        }
         public DbSet<User> Users { get; set; }
+        public DbSet<SavedMovie> SavedMovies { get; set; }
 
+        // Optional - fluent API override
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SavedMovie>().HasOne(sm => sm.User)
+                .WithMany()
+                .HasForeignKey(sm => sm.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

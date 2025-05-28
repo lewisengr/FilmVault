@@ -114,6 +114,42 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SavedMoviesController",
+    "Method": "GetSavedMovies",
+    "RelativePath": "api/SavedMovies",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SavedMoviesController",
+    "Method": "SaveMovie",
+    "RelativePath": "api/SavedMovies/{movieId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "movieId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FilmVault.Controllers.UsersController",
     "Method": "GetAllUsers",
     "RelativePath": "api/Users",

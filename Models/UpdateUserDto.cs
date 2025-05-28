@@ -8,7 +8,7 @@ namespace FilmVault.Models
         [EmailAddress]
         public required string Email { get; set; }
         public string? PasswordHash { get; set; }
-        [StringLength(100, MinimumLength = 6)]
+        [StringLength(100, MinimumLength = 3)]
         public required string Password { get; set; }
     }
 }

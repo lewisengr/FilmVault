@@ -12,7 +12,7 @@ namespace FilmVault.Models.Entities
         [EmailAddress]
         public required string Email { get; set; }
         [NotMapped] // Password never stored in database
-        [StringLength(100, MinimumLength = 6)]
+        [StringLength(100, MinimumLength = 3)]
         public string? Password { get; set; }
         public string? PasswordHash { get; set; } // PasswordHash stored in database
     }

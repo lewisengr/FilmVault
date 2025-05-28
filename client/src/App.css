@@ -1,10 +1,9 @@
 @import "tailwindcss";
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 .logo {
@@ -41,4 +40,37 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.input-label {
+  display: block;
+  font-size: 20px;
+  font-family: "Inter-Medium", Helvetica;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #000000;
+}
+
+.input-field {
+  width: 100%;
+  font-size: 18px;
+  padding: 8px 0;
+  border: none;
+  border-bottom: 1px solid #333;
+  outline: none;
+  background: transparent;
+  font-family: "Inter-Regular", Helvetica;
+  color: #000000;
+  transition: border-color 0.3s;
+}
+
+input.line {
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+  font-size: 18px;
+  padding: 0.5rem 0;
+  margin-top: 0.25rem;
+  background: transparent;
+  outline: none;
 }

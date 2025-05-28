@@ -204,6 +204,70 @@
         }
       }
     },
+    "/api/SavedMovies/{movieId}": {
+      "post": {
+        "tags": [
+          "SavedMovies"
+        ],
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SavedMovies": {
+      "get": {
+        "tags": [
+          "SavedMovies"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Users/profile": {
       "get": {
         "tags": [
@@ -363,7 +427,7 @@
           },
           "password": {
             "maxLength": 100,
-            "minLength": 6,
+            "minLength": 3,
             "type": "string"
           }
         },
@@ -441,7 +505,7 @@
           },
           "password": {
             "maxLength": 100,
-            "minLength": 6,
+            "minLength": 3,
             "type": "string",
             "nullable": true
           }
