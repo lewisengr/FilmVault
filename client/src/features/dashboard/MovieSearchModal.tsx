@@ -1,12 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getFullPosterUrl } from "../../utils/tmdb";
-
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string | null;
-}
+import { convertRawMovie } from "../../utils/convertRawMovie";
+import { RawMovie } from "../../types/Movie";
 
 export const MovieSearchModal = ({
   onClose,
@@ -16,7 +11,7 @@ export const MovieSearchModal = ({
   onAdd: (movieId: number) => void;
 }) => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Movie[]>([]);
+  const [results, setResults] = useState<RawMovie[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -90,19 +85,22 @@ export const MovieSearchModal = ({
 
         {/* Visual Suggestions (First 3 Posters) */}
         <div className="flex justify-between gap-2 mb-4">
-          {results.slice(0, 3).map((movie) => (
-            <div key={movie.id} className="flex flex-col items-center">
-              <img
-                src={getFullPosterUrl(movie.poster_path)}
-                alt={movie.title}
-                className="w-[100px] h-[150px] object-cover rounded shadow cursor-pointer hover:scale-105 transition"
-                onClick={() => {
-                  onAdd(movie.id);
-                  onClose();
-                }}
-              />
-            </div>
-          ))}
+          {results.slice(0, 3).map((rawMovie) => {
+            const movie = convertRawMovie(rawMovie);
+            return (
+              <div key={movie.id} className="flex flex-col items-center">
+                <img
+                  src={getFullPosterUrl(movie.posterPath)}
+                  alt={movie.title}
+                  className="w-[100px] h-[150px] object-cover rounded shadow cursor-pointer hover:scale-105 transition"
+                  onClick={() => {
+                    onAdd(movie.id);
+                    onClose();
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
 
         <button

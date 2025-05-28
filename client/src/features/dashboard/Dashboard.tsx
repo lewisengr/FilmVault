@@ -114,16 +114,7 @@ import { Sidebar } from "../../layout/Sidebar";
 import { Navbar } from "../../layout/Navbar";
 import { useAuth } from "../../hooks/useAuth";
 import { fetchMovieById } from "../../services/movieService";
-
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  posterPath: string | null;
-  voteAverage: number;
-  releaseDate: string | null;
-  fullPosterPath: string;
-}
+import { Movie } from "../../types/Movie";
 
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);

@@ -1,14 +1,6 @@
-const API_BASE_URL = "https://localhost:7170/api/movies";
+import { Movie } from "../types/Movie";
 
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  posterPath: string | null;
-  voteAverage: number;
-  releaseDate: string | null;
-  fullPosterPath: string;
-}
+const API_BASE_URL = "https://localhost:7170/api/movies";
 
 export const fetchMovieById = async (
   movieId: number

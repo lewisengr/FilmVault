@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchMovieById } from "../../services/movieService";
-
-interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  posterPath: string | null;
-  voteAverage: number;
-  releaseDate: string | null;
-  fullPosterPath: string;
-}
+import { Movie } from "../../types/Movie";
 
 interface MovieDetailsProps {
   movieId: number;
