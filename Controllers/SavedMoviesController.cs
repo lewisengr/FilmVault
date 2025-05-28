@@ -52,10 +52,7 @@ public class SavedMoviesController(ApplicationDbContext dbContext) : ControllerB
         var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userIdString == null) return Unauthorized();
 
-        if (!Guid.TryParse(userIdString, out var userId))
-        {
-            return BadRequest("Invalid user ID format.");
-        }
+        if (!Guid.TryParse(userIdString, out var userId)) return BadRequest("Invalid user ID format.");
 
         var movieIds = await _dbContext.SavedMovies
             .Where(m => m.UserId == userId)
@@ -63,5 +60,24 @@ public class SavedMoviesController(ApplicationDbContext dbContext) : ControllerB
             .ToListAsync();
 
         return Ok(movieIds);
+    }
+
+    [HttpDelete("{movieId}")]
+    public async Task<IActionResult> DeleteSavedMovie(int movieId)
+    {
+        var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userIdString == null || !Guid.TryParse(userIdString, out var userId))
+            return Unauthorized();
+
+        var savedMovie = await _dbContext.SavedMovies
+            .FirstOrDefaultAsync(m => m.MovieId == movieId && m.UserId == userId);
+
+        if (savedMovie == null)
+            return NotFound("Movie not found in your saved list.");
+
+        _dbContext.SavedMovies.Remove(savedMovie);
+        await _dbContext.SaveChangesAsync();
+
+        return NoContent();
     }
 }

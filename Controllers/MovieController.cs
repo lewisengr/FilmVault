@@ -15,19 +15,14 @@ namespace FilmVault.Controllers
         public async Task<ActionResult<Movie>> GetMovieById(int id)
         {
             var movie = await _tmdbService.GetMovieByIdAsync(id);
-            if (movie == null)
-            {
-                return NotFound(new { message = "Movie not found" });
-            }
+            if (movie == null) return NotFound(new { message = "Movie not found" });
             return Ok(movie);
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<Movie>>> SearchMovies([FromQuery] string query)
+        public async Task<ActionResult<IEnumerable<Movie>>> SearchMovies([FromQuery] string query, [FromQuery] int page = 1)
         {
-            var movies = await _tmdbService.SearchMoviesAsync(query);
-
-            Console.WriteLine($"[Controller] Returning {movies?.Count} movies");
+            var movies = await _tmdbService.SearchMoviesAsync(query, page);
             return Ok(movies ?? new List<Movie>());
         }
 

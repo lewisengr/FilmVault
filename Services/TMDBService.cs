@@ -27,9 +27,9 @@ namespace FilmVault.Services
             return JsonSerializer.Deserialize<Movie>(response);
         }
 
-        public async Task<List<Movie>> SearchMoviesAsync(string query)
+        public async Task<List<Movie>> SearchMoviesAsync(string query, int page = 1)
         {
-            var url = $"{_baseUrl}/search/movie?api_key={_apiKey}&query={Uri.EscapeDataString(query)}";
+            var url = $"{_baseUrl}/search/movie?api_key={_apiKey}&query={Uri.EscapeDataString(query)}&page={page}";
             var response = await _httpClient.GetStringAsync(url);
 
             Console.WriteLine("RAW TMDB RESPONSE:");

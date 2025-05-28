@@ -10,16 +10,10 @@ namespace FilmVault.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController(ApplicationDbContext dbContext, AuthService authService) : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
-        private readonly AuthService _authService;
-
-        public UsersController(ApplicationDbContext dbContext, AuthService authService)
-        {
-            _dbContext = dbContext;
-            _authService = authService;
-        }
+        private readonly ApplicationDbContext _dbContext = dbContext;
+        private readonly AuthService _authService = authService;
 
         [HttpGet("profile")]
         [Authorize]
@@ -64,10 +58,7 @@ namespace FilmVault.Controllers
         [HttpPost]
         public IActionResult AddUser(AddUserDto addUserDto)
         {
-            if (string.IsNullOrWhiteSpace(addUserDto.Username))
-            {
-                return BadRequest("Username is required.");
-            }
+            if (string.IsNullOrWhiteSpace(addUserDto.Username)) return BadRequest("Username is required.");
 
             var hashedPassword = _authService.HashPassword(addUserDto.Password);
 
@@ -103,7 +94,8 @@ namespace FilmVault.Controllers
         {
             var user = _dbContext.Users.Find(id);
 
-            if (user == null) { return NotFound(); };
+            if (user == null) { return NotFound(); }
+            ;
 
             _dbContext.Users.Remove(user);
             _dbContext.SaveChanges();
