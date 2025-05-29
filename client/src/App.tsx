@@ -16,7 +16,7 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/register" element={<CreateAccountPage />} />
+          <Route path="/" element={<CreateAccountPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/searchall" element={<FindMoviesPage />} />
