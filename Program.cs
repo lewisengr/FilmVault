@@ -99,6 +99,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection(); // Ensure HTTPS is used in production
+}
+
 // Enable CORS
 app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
