@@ -76,7 +76,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
-        policy => policy.WithOrigins("http://localhost:5173", "https://lewisengr.github.io")
+        policy => policy.WithOrigins("http://localhost:5173", "https://lewisengr.github.io", "https://www.filmvault.dev")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
