@@ -1,7 +1,6 @@
 import { Movie } from "../types/Movie";
-import { API_URL } from "../utils/api";
 
-const API_BASE_URL = `${API_URL}/api/movies`;
+const API_BASE_URL = "https://localhost:7170/api/movies";
 
 export const fetchMovieById = async (
   movieId: number

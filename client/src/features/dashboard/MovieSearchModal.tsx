@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { getFullPosterUrl } from "../../utils/tmdb";
 import { convertRawMovie } from "../../utils/convertRawMovie";
 import { RawMovie } from "../../types/Movie";
-import { API_URL } from "../../utils/api";
 
 export const MovieSearchModal = ({
   onClose,
@@ -36,7 +35,9 @@ export const MovieSearchModal = ({
 
         try {
           const res = await fetch(
-            `${API_URL}/api/movies/search?query=${encodeURIComponent(query)}`
+            `https://localhost:7170/api/movies/search?query=${encodeURIComponent(
+              query
+            )}`
           );
 
           if (!res.ok) {

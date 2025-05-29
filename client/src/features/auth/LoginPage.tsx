@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import MovieImageBG from "../../assets/MoviesImageBG.png";
 import FilmVaultLogo from "../../assets/Camera Logo.svg";
-import { API_URL } from "../../utils/api";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -18,7 +17,7 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await fetch(`${API_URL}/api/auth/login`, {
+      const res = await fetch("https://localhost:7170/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
