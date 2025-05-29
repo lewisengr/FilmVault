@@ -1,6 +1,7 @@
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\linux-x64\PubTmp\Out\FilmVault
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\linux-x64\PubTmp\Out\appsettings.Development.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\linux-x64\PubTmp\Out\appsettings.json
+C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\linux-x64\PubTmp\Out\appsettings.Production.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\linux-x64\PubTmp\Out\client\package-lock.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\linux-x64\PubTmp\Out\client\package.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\linux-x64\PubTmp\Out\client\tsconfig.app.json

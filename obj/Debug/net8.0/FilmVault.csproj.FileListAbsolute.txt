@@ -1,5 +1,6 @@
 C:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\appsettings.json
+C:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\appsettings.Production.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\client\package-lock.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\client\package.json
 C:\Users\disne\source\repos\FilmVault\FilmVault\bin\Debug\net8.0\client\tsconfig.app.json
