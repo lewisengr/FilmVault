@@ -173,7 +173,6 @@ C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\staticwebasse
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\staticwebassets\msbuild.buildMultiTargeting.FilmVault.props
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\staticwebassets\msbuild.buildTransitive.FilmVault.props
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\staticwebassets.pack.json
-C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\FilmVault.csproj.Up2Date
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\FilmVault.dll
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\refint\FilmVault.dll
