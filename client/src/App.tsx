@@ -14,7 +14,7 @@ const FindMoviesPage = React.lazy(
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/FilmVault">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<CreateAccountPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
