@@ -180,3 +180,4 @@ C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\refint\FilmVa
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\FilmVault.pdb
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\FilmVault.genruntimeconfig.cache
 C:\Users\disne\source\repos\FilmVault\FilmVault\obj\Release\net8.0\ref\FilmVault.dll
+C:\Users\disne\source\repos\FilmVault\FilmVault\bin\Release\net8.0\appsettings.Production.json
