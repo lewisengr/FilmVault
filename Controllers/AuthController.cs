@@ -23,9 +23,16 @@ namespace FilmVault.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] AddUserDto request)
         {
-            // Call the AuthService to register the user and return the response
-            var response = _authService.Register(request);
-            return Ok(response);
+            try
+            {
+                var response = _authService.Register(request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Registration error: {ex.Message}");
+                return StatusCode(500, "Server error during registration.");
+            }
         }
 
         /// <summary>

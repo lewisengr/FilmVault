@@ -91,6 +91,7 @@ builder.Services.AddResponseCompression(options =>
 });
 
 var app = builder.Build();
+app.UseCors("AllowFrontend");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -99,14 +100,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// only redirect HTTPS once
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection(); // Ensure HTTPS is used in production
 }
 
-// Enable CORS
-app.UseCors("AllowFrontend");
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
