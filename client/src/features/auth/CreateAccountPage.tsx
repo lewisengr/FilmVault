@@ -4,6 +4,7 @@ import MovieImageBG from "../../assets/MoviesImageBG.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import FilmVaultLogo from "../../assets/Camera Logo.svg";
+import { post } from "../../utils/api";
 
 export const CreateAccountPage = () => {
   const [formData, setFormData] = React.useState({
@@ -21,19 +22,21 @@ export const CreateAccountPage = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await fetch("https://localhost:7170/api/Auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      // const res = await fetch("https://localhost:7170/api/Auth/register", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(formData),
+      // });
 
-      if (!res.ok) {
-        const data = await res.json();
-        console.error("Validation error", data.errors);
-        throw new Error("Registration failed");
-      }
+      const data = await post<{ token: string }>("/Auth/register", formData);
 
-      const data = await res.json();
+      // if (!res.ok) {
+      //   const data = await res.json();
+      //   console.error("Validation error", data.errors);
+      //   throw new Error("Registration failed");
+      // }
+
+      // const data = await res.json();
       const token = data.token;
 
       setToken(token);

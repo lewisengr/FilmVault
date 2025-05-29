@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import MovieImageBG from "../../assets/MoviesImageBG.png";
 import FilmVaultLogo from "../../assets/Camera Logo.svg";
+import { post } from "../../utils/api";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -17,18 +18,23 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await fetch("https://localhost:7170/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      // const res = await fetch("https://localhost:7170/api/auth/login", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ email, password }),
+      // });
+
+      const data = await post<{ token: string }>("/auth/login", {
+        email,
+        password,
       });
 
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message || "Login failed");
-      }
+      // if (!res.ok) {
+      //   const { message } = await res.json();
+      //   throw new Error(message || "Login failed");
+      // }
 
-      const data = await res.json();
+      // const data = await res.json();
       setToken(data.token);
       navigate("/dashboard");
     } catch (error: unknown) {
