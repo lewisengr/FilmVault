@@ -8,6 +8,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { fetchMovieById } from "../../services/movieService";
 import { Movie } from "../../types/Movie";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
+import { API_URL } from "../../utils/api";
 
 const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
@@ -24,7 +25,7 @@ const Dashboard = () => {
   // 1. Load saved movies from backend on first render
   useEffect(() => {
     const fetchSavedMovies = async () => {
-      const res = await fetch("https://localhost:7170/api/savedmovies", {
+      const res = await fetch(`${API_URL}/api/savedmovies`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -50,7 +51,7 @@ const Dashboard = () => {
   const handleAddMovie = async (id: number) => {
     if (movieIds.includes(id)) return;
 
-    const res = await fetch(`https://localhost:7170/api/savedmovies/${id}`, {
+    const res = await fetch(`${API_URL}/api/savedmovies/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -65,7 +66,7 @@ const Dashboard = () => {
   };
 
   const handleRemoveMovie = async (id: number) => {
-    const res = await fetch(`https://localhost:7170/api/savedmovies/${id}`, {
+    const res = await fetch(`${API_URL}/api/savedmovies/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

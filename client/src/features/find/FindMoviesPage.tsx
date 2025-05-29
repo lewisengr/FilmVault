@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Movie, RawMovie } from "../../types/Movie";
 import { Sidebar } from "../../layout/Sidebar";
 import { Navbar } from "../../layout/Navbar";
+import { API_URL } from "../../utils/api";
 
 const mapRawToMovie = (raw: RawMovie): Movie => ({
   id: raw.id,
@@ -29,10 +30,10 @@ const FindMoviesPage = () => {
   const fetchMovies = useCallback(async () => {
     const sanitizedQuery = sanitizeInput(query);
     const endpoint = sanitizedQuery
-      ? `https://localhost:7170/api/movies/search?query=${encodeURIComponent(
+      ? `${API_URL}/api/movies/search?query=${encodeURIComponent(
           sanitizedQuery
         )}&page=${page}&include_adult=true&language=en-US`
-      : `https://localhost:7170/api/movies/popular?page=${page}`;
+      : `${API_URL}/api/movies/popular?page=${page}`;
 
     const res = await fetch(endpoint);
     const data: RawMovie[] = await res.json();
@@ -50,7 +51,7 @@ const FindMoviesPage = () => {
   }, [query, page]);
 
   const fetchSavedMoviesIds = useCallback(async () => {
-    const res = await fetch("https://localhost:7170/api/savedmovies", {
+    const res = await fetch(`${API_URL}/api/savedmovies`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -93,7 +94,7 @@ const FindMoviesPage = () => {
       return;
     }
 
-    const res = await fetch(`https://localhost:7170/api/savedmovies/${id}`, {
+    const res = await fetch(`${API_URL}/api/savedmovies/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -4,6 +4,7 @@ import MovieImageBG from "../../assets/MoviesImageBG.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import FilmVaultLogo from "../../assets/Camera Logo.svg";
+import { API_URL } from "../../utils/api";
 
 export const CreateAccountPage = () => {
   const [formData, setFormData] = React.useState({
@@ -21,7 +22,7 @@ export const CreateAccountPage = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await fetch("https://localhost:7170/api/Auth/register", {
+      const res = await fetch(`${API_URL}/api/Auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
