@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "FilmVault.Controllers.HomeController",
+    "Method": "Index",
+    "RelativePath": "",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FilmVault.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",

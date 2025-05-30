@@ -70,6 +70,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Configuration.AddJsonFile("appsettings.Production.json", optional: true, reloadOnChange: true);
+
 builder.Services.AddAuthorization();
 
 // CORS to allow frontend requests from Vite (default port: 5173)
@@ -91,7 +93,6 @@ builder.Services.AddResponseCompression(options =>
 });
 
 var app = builder.Build();
-app.UseCors("AllowFrontend");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -106,6 +107,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection(); // Ensure HTTPS is used in production
 }
 
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

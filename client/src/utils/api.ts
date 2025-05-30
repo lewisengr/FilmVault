@@ -1,11 +1,15 @@
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:7170/api";
+  import.meta.env.VITE_API_BASE_URL || "https://localhost:7170/api";
+
+console.log("API base URL:", import.meta.env.VITE_API_BASE_URL);
 
 export async function post<T>(
   endpoint: string,
   data: unknown,
   token?: string
 ): Promise<T> {
+console.log("API base URL:", import.meta.env.VITE_API_BASE_URL);
+
   const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: "POST",
     headers: {

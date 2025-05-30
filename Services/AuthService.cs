@@ -44,12 +44,20 @@ namespace FilmVault.Services
         // Login and generate JWT
         public AuthResponse? Login(AuthRequest request)
         {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Email == request.Email);
-            if (string.IsNullOrEmpty(request.Password) || user == null || string.IsNullOrEmpty(user.PasswordHash) || !VerifyPassword(request.Password, user.PasswordHash))
-                return null;
+            try
+            {
+                var user = _dbContext.Users.FirstOrDefault(u => u.Email == request.Email);
+                if (string.IsNullOrEmpty(request.Password) || user == null || string.IsNullOrEmpty(user.PasswordHash) || !VerifyPassword(request.Password, user.PasswordHash))
+                    return null;
 
-            var token = GenerateJwtToken(user);
-            return new AuthResponse { Token = token };
+                var token = GenerateJwtToken(user);
+                return new AuthResponse { Token = token };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Login error: {ex.Message}");
+                throw; // to still surface error to frontend
+            }
         }
 
         private string GenerateJwtToken(User user)

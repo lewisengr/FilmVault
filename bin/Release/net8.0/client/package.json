@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && git worktree add ../gh-pages-temp gh-pages && rd /s /q ..\\gh-pages-temp\\* && xcopy /s /e /y dist\\* ..\\gh-pages-temp && copy CNAME ..\\gh-pages-temp && cd ../gh-pages-temp && git add . && git commit -m \"Deploy frontend\" && git push origin gh-pages && cd .. && git worktree remove gh-pages-temp --force"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.8",
