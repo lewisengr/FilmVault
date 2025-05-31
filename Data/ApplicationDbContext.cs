@@ -7,7 +7,7 @@ namespace FilmVault.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<SavedMovie> SavedMovies { get; set; }
-
+        public DbSet<Watchlist> Watchlist { get; set; }
         // Optional - fluent API override
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

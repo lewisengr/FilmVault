@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import { Movie, RawMovie } from "../../types/Movie";
 import { Sidebar } from "../../layout/Sidebar";
 import { Navbar } from "../../layout/Navbar";
+import { post } from "../../utils/api";
+import { useAuth } from "../../hooks/useAuth";
 
 const mapRawToMovie = (raw: RawMovie): Movie => ({
   id: raw.id,
@@ -25,6 +27,7 @@ const FindMoviesPage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [addedIds, setAddedIds] = useState<number[]>([]);
+  const { token } = useAuth(); // grab the token from the auth context
 
   const fetchMovies = useCallback(async () => {
     const sanitizedQuery = sanitizeInput(query);
@@ -63,6 +66,7 @@ const FindMoviesPage = () => {
       console.error("Failed to fetch saved movies IDs");
     }
   }, []);
+
   useEffect(() => {
     fetchSavedMoviesIds();
   }, [fetchSavedMoviesIds]);
@@ -72,8 +76,8 @@ const FindMoviesPage = () => {
       setPage(1);
       setMovies([]);
       setHasMore(true);
-      await fetchSavedMoviesIds(); // ensure saved IDs are fetched first
-      await fetchMovies(); // then load movies based on the current query
+      await fetchSavedMoviesIds();
+      await fetchMovies();
     }, 200);
 
     return () => clearTimeout(delayDebounce);
@@ -93,20 +97,12 @@ const FindMoviesPage = () => {
       return;
     }
 
-    const res = await fetch(`https://localhost:7170/api/savedmovies/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-
-    if (res.ok) {
+    try {
+      await post(`/savedmovies/${id}`, {}, token);
+      toast.success(`"${title}" has been added to your dashboard.`); // temp
       setAddedIds((prev) => [...prev, id]);
-    } else if (res.status === 409) {
-      // Optional: if server already checks for duplicate
-      alert(`"${title}" is already saved.`);
-    } else {
+    } catch (error) {
+      console.error("Error adding movie:", error);
       alert("An error occurred while saving the movie.");
     }
   };
@@ -135,7 +131,7 @@ const FindMoviesPage = () => {
             dataLength={movies.length}
             next={async () => {
               setPage((prev) => prev + 1);
-              await fetchSavedMoviesIds(); // refresh in case user added new movies
+              await fetchSavedMoviesIds();
             }}
             hasMore={hasMore}
             loader={<div className="text-center text-gray-500 mt-4"></div>}

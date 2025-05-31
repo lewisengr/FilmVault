@@ -22,6 +22,14 @@ export const Sidebar = () => {
           />
         </Link>
 
+        <Link to="/watchlist" className="w-full flex justify-center">
+          <NavigationItem
+            icon="/src/assets/WatchlistIcon.png"
+            label="Watchlist"
+            isActive={currentPath === "/watchlist"}
+          />
+        </Link>
+
         <Link to="/searchall" className="w-full flex justify-center">
           <NavigationItem
             icon="/src/assets/SearchIcon.png"

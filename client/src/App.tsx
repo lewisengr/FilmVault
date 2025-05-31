@@ -10,6 +10,9 @@ const Settings = React.lazy(() => import("./features/settings/Settings"));
 const FindMoviesPage = React.lazy(
   () => import("./features/find/FindMoviesPage")
 );
+const WatchlistPage = React.lazy(
+  () => import("./features/watchlist/WatchlistPage")
+);
 
 const App = () => {
   return (
@@ -20,6 +23,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/searchall" element={<FindMoviesPage />} />
+          <Route path="/watchlist" element={<WatchlistPage />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </BrowserRouter>

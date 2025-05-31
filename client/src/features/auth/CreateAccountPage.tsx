@@ -28,6 +28,7 @@ export const CreateAccountPage = () => {
       //   body: JSON.stringify(formData),
       // });
 
+      // this is the new API call using the post utility function
       const data = await post<{ token: string }>("/Auth/register", formData);
 
       // if (!res.ok) {
