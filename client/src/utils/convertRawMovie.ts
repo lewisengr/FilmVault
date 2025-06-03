@@ -9,5 +9,5 @@ export const convertRawMovie = (raw: RawMovie): Movie => ({
   releaseDate: raw.release_date,
   fullPosterPath: raw.poster_path
     ? `https://image.tmdb.org/t/p/w500${raw.poster_path}`
-    : "",
+    : null,
 });

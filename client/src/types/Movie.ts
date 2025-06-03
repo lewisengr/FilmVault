@@ -5,7 +5,7 @@ export interface Movie {
   posterPath: string | null;
   voteAverage: number;
   releaseDate: string | null;
-  fullPosterPath: string;
+  fullPosterPath: string | null;
 }
 
 // Only for raw TMDb API responses

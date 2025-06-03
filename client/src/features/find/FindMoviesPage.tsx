@@ -144,7 +144,7 @@ const FindMoviesPage = () => {
                   className="bg-white rounded shadow p-2 flex flex-col items-center transition-opacity duration-700 opacity-0 animate-fade-in"
                 >
                   <img
-                    src={movie.fullPosterPath}
+                    src={movie.fullPosterPath ?? ""}
                     alt={movie.title}
                     loading="lazy"
                     title={movie.title}
