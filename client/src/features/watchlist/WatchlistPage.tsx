@@ -7,6 +7,7 @@ import { MovieSearchModal } from "../dashboard/MovieSearchModal";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 import { Movie } from "../../types/Movie";
 import { get, post, del } from "../../utils/api";
+import { useAuth } from "../../hooks/useAuth";
 
 const WatchlistPage = () => {
   const [watchlist, setWatchlist] = useState<Movie[]>([]);
@@ -17,13 +18,14 @@ const WatchlistPage = () => {
     id: number;
     title: string;
   } | null>(null);
+  const { token } = useAuth();
 
   useEffect(() => {
     const loadWatchlist = async () => {
       try {
-        const ids = await get<number[]>("/watchlist");
+        const ids = await get<number[]>("/watchlist", token);
         const movies = await Promise.all(
-          ids.map((id) => get<Movie>(`/movies/${id}`))
+          ids.map((id) => get<Movie>(`/movies/${id}`, token))
         );
         setWatchlist(movies);
       } catch (err) {
@@ -32,14 +34,14 @@ const WatchlistPage = () => {
     };
 
     loadWatchlist();
-  }, []);
+  }, [token]);
 
   const handleAddMovieToWatchlist = async (movieId: number) => {
     if (watchlist.find((movie) => movie.id === movieId)) return;
 
     try {
-      await post(`/watchlist/${movieId}`, {});
-      const movie = await get<Movie>(`/movies/${movieId}`);
+      await post(`/watchlist/${movieId}`, {}, token);
+      const movie = await get<Movie>(`/movies/${movieId}`, token);
       setWatchlist((prev) => [...prev, movie]);
     } catch (error) {
       console.error("Error adding to watchlist:", error);
@@ -48,7 +50,7 @@ const WatchlistPage = () => {
 
   const handleRemoveMovie = async (id: number) => {
     try {
-      await del(`/watchlist/${id}`);
+      await del(`/watchlist/${id}`, token);
       setWatchlist((prev) => prev.filter((movie) => movie.id !== id));
     } catch (err) {
       console.error("Failed to remove from watchlist", err);
