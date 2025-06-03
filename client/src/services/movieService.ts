@@ -17,7 +17,7 @@ export const fetchMovieById = async (
       releaseDate: data.releaseDate ?? null,
       fullPosterPath: data.posterPath
         ? `https://image.tmdb.org/t/p/w500${data.posterPath}`
-        : "",
+        : null,
     };
   } catch (error) {
     console.error("Error fetching movie:", error);
