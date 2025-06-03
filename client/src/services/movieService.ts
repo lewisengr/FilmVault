@@ -1,28 +1,22 @@
 import { Movie } from "../types/Movie";
-
-const API_BASE_URL = "https://localhost:7170/api/movies";
+import { get } from "../utils/api";
 
 export const fetchMovieById = async (
-  movieId: number
+  movieId: number,
+  token?: string
 ): Promise<Movie | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/${movieId}`);
-    if (!response.ok)
-      throw new Error(`Failed to fetch movie data: ${response.statusText}`);
-
-    const data = await response.json();
-
-    console.log("API Response:", data);
+    const data = await get<Movie>(`/movies/${movieId}`, token);
 
     return {
       id: data.id,
       title: data.title,
       overview: data.overview,
-      posterPath: data.poster_path ?? null,
-      voteAverage: data.vote_average ?? 0,
-      releaseDate: data.release_date ?? null,
-      fullPosterPath: data.poster_path
-        ? `https://image.tmdb.org/t/p/w500${data.poster_path}`
+      posterPath: data.posterPath ?? null,
+      voteAverage: data.voteAverage ?? 0,
+      releaseDate: data.releaseDate ?? null,
+      fullPosterPath: data.posterPath
+        ? `https://image.tmdb.org/t/p/w500${data.posterPath}`
         : "",
     };
   } catch (error) {
