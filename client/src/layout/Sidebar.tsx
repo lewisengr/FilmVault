@@ -1,5 +1,5 @@
 import { NavigationItem } from "../components/NavigationItem";
-import FilmVaultLogo from "../assets/Camera Logo.svg";
+import FilmVaultLogo from "../../public/Camera Logo.svg";
 import { Link, useLocation } from "react-router-dom";
 
 export const Sidebar = () => {
@@ -16,7 +16,7 @@ export const Sidebar = () => {
       <div className="flex flex-col items-center gap-6 w-full mt-10">
         <Link to="/dashboard" className="w-full flex justify-center">
           <NavigationItem
-            icon="/src/assets/DashboardIcon.png"
+            icon="../../public/DashboardIcon.png"
             label="Dashboard"
             isActive={currentPath === "/dashboard"}
           />
@@ -24,7 +24,7 @@ export const Sidebar = () => {
 
         <Link to="/watchlist" className="w-full flex justify-center">
           <NavigationItem
-            icon="/src/assets/WatchlistIcon.png"
+            icon="../../public/WatchlistIcon.png"
             label="Watchlist"
             isActive={currentPath === "/watchlist"}
           />
@@ -32,7 +32,7 @@ export const Sidebar = () => {
 
         <Link to="/searchall" className="w-full flex justify-center">
           <NavigationItem
-            icon="/src/assets/SearchIcon.png"
+            icon="../../public/SearchIcon.png"
             label="Find Movies"
             isActive={currentPath === "/searchall"}
           />
@@ -40,7 +40,7 @@ export const Sidebar = () => {
 
         <Link to="/settings" className="w-full flex justify-center">
           <NavigationItem
-            icon="/src/assets/Settings.png"
+            icon="../../public/Settings.png"
             label="Settings"
             isActive={currentPath === "/settings"}
           />
