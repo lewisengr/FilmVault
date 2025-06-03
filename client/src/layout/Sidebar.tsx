@@ -1,6 +1,10 @@
 import { NavigationItem } from "../components/NavigationItem";
-import FilmVaultLogo from "../../public/Camera Logo.svg";
+import FilmVaultLogo from "../assets/Camera Logo.svg";
 import { Link, useLocation } from "react-router-dom";
+import DashboardIcon from "../assets/DashboardIcon.png";
+import WatchlistIcon from "../assets/WatchlistIcon.png";
+import SearchIcon from "../assets/SearchIcon.png";
+import SettingsIcon from "../assets/Settings.png";
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -16,7 +20,7 @@ export const Sidebar = () => {
       <div className="flex flex-col items-center gap-6 w-full mt-10">
         <Link to="/dashboard" className="w-full flex justify-center">
           <NavigationItem
-            icon="../../public/DashboardIcon.png"
+            icon={DashboardIcon}
             label="Dashboard"
             isActive={currentPath === "/dashboard"}
           />
@@ -24,7 +28,7 @@ export const Sidebar = () => {
 
         <Link to="/watchlist" className="w-full flex justify-center">
           <NavigationItem
-            icon="../../public/WatchlistIcon.png"
+            icon={WatchlistIcon}
             label="Watchlist"
             isActive={currentPath === "/watchlist"}
           />
@@ -32,7 +36,7 @@ export const Sidebar = () => {
 
         <Link to="/searchall" className="w-full flex justify-center">
           <NavigationItem
-            icon="../../public/SearchIcon.png"
+            icon={SearchIcon}
             label="Find Movies"
             isActive={currentPath === "/searchall"}
           />
@@ -40,7 +44,7 @@ export const Sidebar = () => {
 
         <Link to="/settings" className="w-full flex justify-center">
           <NavigationItem
-            icon="../../public/Settings.png"
+            icon={SettingsIcon}
             label="Settings"
             isActive={currentPath === "/settings"}
           />

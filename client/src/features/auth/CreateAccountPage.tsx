@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import MovieImageBG from "../../../public/MoviesImageBG.png";
+import MovieImageBG from "../../assets/MoviesImageBG.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import FilmVaultLogo from "../../../public/Camera Logo.svg";
+import FilmVaultLogo from "../../assets/Camera Logo.svg";
 import { post } from "../../utils/api";
 
 export const CreateAccountPage = () => {

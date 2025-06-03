@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import MovieImageBG from "../../../public/MoviesImageBG.png";
-import FilmVaultLogo from "../../../public/Camera Logo.svg";
+import MovieImageBG from "../../assets/MoviesImageBG.png";
+import FilmVaultLogo from "../../assets/Camera Logo.svg";
 import { post } from "../../utils/api";
 
 const Login = () => {
