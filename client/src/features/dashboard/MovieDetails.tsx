@@ -25,11 +25,13 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movieId, asCard }) => {
   return movie ? (
     asCard ? (
       // Compact card view
-      <img
-        src={movie.fullPosterPath ?? ""}
-        alt={movie.title}
-        className="w-full aspect-[2/3] object-cover rounded-lg shadow-md"
-      />
+      movie.fullPosterPath ? (
+        <img
+          src={movie.fullPosterPath}
+          alt={movie.title}
+          className="w-full aspect-[2/3] object-cover rounded-lg shadow-md"
+        />
+      ) : null
     ) : (
       // Modal detail view
       <div className="flex flex-col md:flex-row gap-6">

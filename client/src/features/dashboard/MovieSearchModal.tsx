@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getFullPosterUrl } from "../../utils/tmdb";
 import { convertRawMovie } from "../../utils/convertRawMovie";
 import { RawMovie } from "../../types/Movie";
+import { API_BASE_URL } from "../../utils/api";
 
 interface MovieSearchModalProps {
   onClose: () => void;
@@ -39,9 +40,9 @@ export const MovieSearchModal = ({
 
         try {
           const res = await fetch(
-            `https://localhost:7170/api/movies/search?query=${encodeURIComponent(
-              query
-            )}`
+            `${API_BASE_URL}/movies/search?query=${encodeURIComponent(
+              query.trim()
+            )}&include_adult=true&language=en-US`
           );
 
           if (!res.ok) {

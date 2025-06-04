@@ -6,6 +6,7 @@ import { Sidebar } from "../../layout/Sidebar";
 import { Navbar } from "../../layout/Navbar";
 import { post } from "../../utils/api";
 import { useAuth } from "../../hooks/useAuth";
+import { API_BASE_URL } from "../../utils/api";
 
 const mapRawToMovie = (raw: RawMovie): Movie => ({
   id: raw.id,
@@ -27,15 +28,15 @@ const FindMoviesPage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [addedIds, setAddedIds] = useState<number[]>([]);
-  const { token } = useAuth(); // grab the token from the auth context
+  const { token } = useAuth();
 
   const fetchMovies = useCallback(async () => {
     const sanitizedQuery = sanitizeInput(query);
     const endpoint = sanitizedQuery
-      ? `https://localhost:7170/api/movies/search?query=${encodeURIComponent(
+      ? `${API_BASE_URL}/movies/search?query=${encodeURIComponent(
           sanitizedQuery
         )}&page=${page}&include_adult=true&language=en-US`
-      : `https://localhost:7170/api/movies/popular?page=${page}`;
+      : `${API_BASE_URL}/movies/popular?page=${page}`;
 
     const res = await fetch(endpoint);
     const data: RawMovie[] = await res.json();
@@ -53,35 +54,48 @@ const FindMoviesPage = () => {
   }, [query, page]);
 
   const fetchSavedMoviesIds = useCallback(async () => {
-    const res = await fetch("https://localhost:7170/api/savedmovies", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    if (!token) {
+      console.warn("No token provided. Skipping saved movies fetch.");
+      return;
+    }
 
-    if (res.ok) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/savedmovies`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        console.error(`Failed with status ${res.status}`);
+        return;
+      }
+
       const savedIds: number[] = await res.json();
       setAddedIds((prev) => [...new Set([...prev, ...savedIds])]);
-    } else {
-      console.error("Failed to fetch saved movies IDs");
+    } catch (error) {
+      console.error("Error fetching saved movie IDs:", error);
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
-    fetchSavedMoviesIds();
-  }, [fetchSavedMoviesIds]);
+    if (token) {
+      fetchSavedMoviesIds();
+    }
+  }, [fetchSavedMoviesIds, token]);
 
   useEffect(() => {
     const delayDebounce = setTimeout(async () => {
       setPage(1);
       setMovies([]);
       setHasMore(true);
+      console.log("Auth token bein used:", token);
       await fetchSavedMoviesIds();
       await fetchMovies();
     }, 200);
 
     return () => clearTimeout(delayDebounce);
-  }, [fetchMovies, fetchSavedMoviesIds, query]);
+  }, [fetchMovies, fetchSavedMoviesIds, query, token]);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
