@@ -43,7 +43,21 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient<TMDBService>();
 builder.Services.AddScoped<AuthService>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null
+            );
+            sqlOptions.CommandTimeout(60); // increase default timeout if needed
+        }
+    )
+);
+
 
 // Load JWT Secret Key
 var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");

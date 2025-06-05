@@ -46,7 +46,7 @@ const Dashboard = () => {
       await post(`/savedmovies/${id}`, {}, token);
       setMovieIds((prev) => [...prev, id]);
 
-      const movie = await post<Movie>(`/movies/${id}`, {}, token);
+      const movie = await get<Movie>(`/movies/${id}`, token);
       if (movie) setMovies((prev) => [...prev, movie]);
     } catch (err) {
       console.error("Failed to add movie", err);

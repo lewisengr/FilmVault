@@ -1,4 +1,4 @@
-import { Movie } from "../types/Movie";
+import { Movie, RawMovie } from "../types/Movie";
 import { get } from "../utils/api";
 
 export const fetchMovieById = async (
@@ -6,19 +6,22 @@ export const fetchMovieById = async (
   token?: string
 ): Promise<Movie | null> => {
   try {
-    const data = await get<Movie>(`/movies/${movieId}`, token);
+    const raw = await get<RawMovie>(`/movies/${movieId}`, token);
+    console.log("RAW movie data:", raw);
 
-    return {
-      id: data.id,
-      title: data.title,
-      overview: data.overview,
-      posterPath: data.posterPath ?? null,
-      voteAverage: data.voteAverage ?? 0,
-      releaseDate: data.releaseDate ?? null,
-      fullPosterPath: data.posterPath
-        ? `https://image.tmdb.org/t/p/w500${data.posterPath}`
+    const movie: Movie = {
+      id: raw.id,
+      title: raw.title,
+      overview: raw.overview,
+      posterPath: raw.poster_path ?? null,
+      voteAverage: raw.vote_average ?? 0,
+      releaseDate: raw.release_date ?? null,
+      fullPosterPath: raw.poster_path
+        ? `https://image.tmdb.org/t/p/w500${raw.poster_path}`
         : null,
     };
+
+    return movie;
   } catch (error) {
     console.error("Error fetching movie:", error);
     return null;

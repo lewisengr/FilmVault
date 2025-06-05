@@ -16,14 +16,29 @@ namespace FilmVault.Services
         private readonly JsonSerializerOptions _jsonOptions = new()
         {
             PropertyNameCaseInsensitive = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
         public async Task<Movie?> GetMovieByIdAsync(int id)
         {
             var url = $"{_baseUrl}/movie/{id}?api_key={_apiKey}";
             var response = await _httpClient.GetStringAsync(url);
-            return JsonSerializer.Deserialize<Movie>(response, _jsonOptions);
+
+            Console.WriteLine("TMDB Full Movie JSON:");
+            Console.WriteLine(response);
+
+            var tmdbMovie = JsonSerializer.Deserialize<TMDBMovieDetail>(response, _jsonOptions);
+            if (tmdbMovie == null) return null;
+
+            return new Movie
+            {
+                Id = tmdbMovie.Id,
+                Title = tmdbMovie.Title,
+                Overview = tmdbMovie.Overview,
+                PosterPath = tmdbMovie.PosterPath,
+                VoteAverage = tmdbMovie.VoteAverage ?? 0,
+                ReleaseDate = tmdbMovie.ReleaseDate
+            };
         }
+
         public async Task<List<Movie>> SearchMoviesAsync(string query, int page = 1)
         {
             var url = $"{_baseUrl}/search/movie?api_key={_apiKey}&query={Uri.EscapeDataString(query)}&page={page}";

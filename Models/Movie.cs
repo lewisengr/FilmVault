@@ -23,10 +23,17 @@ namespace FilmVault.Models
         public string? ReleaseDate { get; set; }
 
         // Derived property, not part of TMDB JSON
-        public string FullPosterPath =>
-            string.IsNullOrEmpty(PosterPath)
-                ? ""
-                : $"https://image.tmdb.org/t/p/w500{PosterPath}";
+        [JsonIgnore]
+        public string FullPosterPath
+        {
+            get
+            {
+                return string.IsNullOrEmpty(PosterPath)
+                    ? ""
+                    : $"https://image.tmdb.org/t/p/w500{PosterPath}";
+            }
+        }
+
     }
     public class MovieSearchResult
     {

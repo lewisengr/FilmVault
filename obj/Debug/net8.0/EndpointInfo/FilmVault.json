@@ -600,11 +600,6 @@
           "release_date": {
             "type": "string",
             "nullable": true
-          },
-          "fullPosterPath": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
