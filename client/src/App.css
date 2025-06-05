@@ -40,7 +40,7 @@
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.2s ease-out forwards;
+  animation: fadeIn 0.15s ease-out forwards;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,6 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { toast } from "react-toastify";
 import { Movie, RawMovie } from "../../types/Movie";
 import { Sidebar } from "../../layout/Sidebar";
 import { Navbar } from "../../layout/Navbar";
@@ -25,8 +23,6 @@ const sanitizeInput = (input: string) => input.replace(/[^\w\s]/gi, "").trim();
 const FindMoviesPage = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
   const [addedIds, setAddedIds] = useState<number[]>([]);
   const { token } = useAuth();
 
@@ -35,8 +31,8 @@ const FindMoviesPage = () => {
     const endpoint = sanitizedQuery
       ? `${API_BASE_URL}/movies/search?query=${encodeURIComponent(
           sanitizedQuery
-        )}&page=${page}&include_adult=true&language=en-US`
-      : `${API_BASE_URL}/movies/popular?page=${page}`;
+        )}&include_adult=true&language=en-US`
+      : `${API_BASE_URL}/movies/popular`;
 
     const res = await fetch(endpoint);
     const data: RawMovie[] = await res.json();
@@ -49,15 +45,11 @@ const FindMoviesPage = () => {
       return b.voteAverage - a.voteAverage;
     });
 
-    setMovies((prev) => (page === 1 ? sorted : [...prev, ...sorted]));
-    if (mapped.length === 0 || mapped.length < 10) setHasMore(false);
-  }, [query, page]);
+    setMovies(sorted);
+  }, [query]);
 
   const fetchSavedMoviesIds = useCallback(async () => {
-    if (!token) {
-      console.warn("No token provided. Skipping saved movies fetch.");
-      return;
-    }
+    if (!token) return;
 
     try {
       const res = await fetch(`${API_BASE_URL}/savedmovies`, {
@@ -67,12 +59,12 @@ const FindMoviesPage = () => {
       });
 
       if (!res.ok) {
-        console.error(`Failed with status ${res.status}`);
+        console.error(`Failed to fetch saved movies: ${res.status}`);
         return;
       }
 
       const savedIds: number[] = await res.json();
-      setAddedIds((prev) => [...new Set([...prev, ...savedIds])]);
+      setAddedIds(savedIds);
     } catch (error) {
       console.error("Error fetching saved movie IDs:", error);
     }
@@ -86,34 +78,25 @@ const FindMoviesPage = () => {
 
   useEffect(() => {
     const delayDebounce = setTimeout(async () => {
-      setPage(1);
-      setMovies([]);
-      setHasMore(true);
-      console.log("Auth token bein used:", token);
-      await fetchSavedMoviesIds();
+      if (token) {
+        await fetchSavedMoviesIds();
+      }
       await fetchMovies();
     }, 200);
 
     return () => clearTimeout(delayDebounce);
-  }, [fetchMovies, fetchSavedMoviesIds, query, token]);
+  }, [query, fetchMovies, fetchSavedMoviesIds, token]);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setPage(1);
-    setMovies([]);
-    setHasMore(true);
     fetchMovies();
   };
 
-  const handleAddMovie = async (id: number, title: string) => {
-    if (addedIds.includes(id)) {
-      toast.error(`"${title}" is already on your dashboard.`);
-      return;
-    }
+  const handleAddMovie = async (id: number) => {
+    if (addedIds.includes(id)) return;
 
     try {
       await post(`/savedmovies/${id}`, {}, token);
-      toast.success(`"${title}" has been added to your dashboard.`); // temp
       setAddedIds((prev) => [...prev, id]);
     } catch (error) {
       console.error("Error adding movie:", error);
@@ -141,47 +124,36 @@ const FindMoviesPage = () => {
             />
           </form>
 
-          <InfiniteScroll
-            dataLength={movies.length}
-            next={async () => {
-              setPage((prev) => prev + 1);
-              await fetchSavedMoviesIds();
-            }}
-            hasMore={hasMore}
-            loader={<div className="text-center text-gray-500 mt-4"></div>}
-            scrollThreshold={0.95}
-          >
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
-              {movies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="bg-white rounded shadow p-2 flex flex-col items-center transition-opacity duration-700 opacity-0 animate-fade-in"
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+            {movies.map((movie) => (
+              <div
+                key={movie.id}
+                className="bg-white rounded shadow p-2 flex flex-col items-center transition-transform duration-300 hover:scale-[1.02] animate-fade-in"
+              >
+                <img
+                  src={movie.fullPosterPath ?? ""}
+                  alt={movie.title}
+                  loading="lazy"
+                  title={movie.title}
+                  className="w-full aspect-[2/3] object-cover rounded"
+                />
+                <h3 className="mt-2 text-sm font-medium text-center">
+                  {movie.title}
+                </h3>
+                <button
+                  onClick={() => handleAddMovie(movie.id)}
+                  className={`mt-2 px-3 py-1 rounded text-sm font-semibold transition cursor-pointer ${
+                    addedIds.includes(movie.id)
+                      ? "bg-gray-400 text-white cursor-not-allowed"
+                      : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  }`}
+                  disabled={addedIds.includes(movie.id)}
                 >
-                  <img
-                    src={movie.fullPosterPath ?? ""}
-                    alt={movie.title}
-                    loading="lazy"
-                    title={movie.title}
-                    className="w-full aspect-[2/3] object-cover rounded"
-                  />
-                  <h3 className="mt-2 text-sm font-medium text-center">
-                    {movie.title}
-                  </h3>
-                  <button
-                    onClick={() => handleAddMovie(movie.id, movie.title)}
-                    className={`mt-2 px-3 py-1 rounded text-sm font-semibold transition ${
-                      addedIds.includes(movie.id)
-                        ? "bg-gray-400 text-white cursor-not-allowed"
-                        : "bg-indigo-600 text-white hover:bg-indigo-700"
-                    }`}
-                    disabled={addedIds.includes(movie.id)}
-                  >
-                    {addedIds.includes(movie.id) ? "Added" : "Add"}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </InfiniteScroll>
+                  {addedIds.includes(movie.id) ? "Added" : "Add"}
+                </button>
+              </div>
+            ))}
+          </div>
         </main>
       </div>
     </div>

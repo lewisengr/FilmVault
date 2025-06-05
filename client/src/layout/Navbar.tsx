@@ -16,17 +16,22 @@ export const Navbar = ({ title }: { title?: string }) => {
 
   return (
     <header className="w-full bg-white relative">
-      <nav className="flex justify-between items-center w-full gap-6 py-4 px-6">
-        <h2 className="text-3xl font-medium text-slate-700">{title}</h2>
+      <nav className="flex justify-between items-center w-full gap-4 py-4 px-4 sm:px-6 flex-wrap">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-slate-700 truncate max-w-[200px]">
+          {title}
+        </h2>
 
-        <div className="flex items-center gap-4 flex-grow justify-end relative">
-          <SearchBar />
+        <div className="flex items-center gap-4 flex-grow justify-end">
+          {/* Only show SearchBar on small screens and up */}
+          <div className="hidden sm:block">
+            <SearchBar />
+          </div>
 
           <div className="relative">
             <img
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/8cfcdbd633a4783969723fdd3517a1d9812d8321?placeholderIfAbsent=true&apiKey=0482add54957497c913c831a5e30795b"
               alt="User avatar"
-              className="cursor-pointer w-[60px] aspect-square rounded-full object-cover"
+              className="cursor-pointer w-[48px] sm:w-[60px] aspect-square rounded-full object-cover"
               onClick={() => setShowDropdown((prev) => !prev)}
             />
 

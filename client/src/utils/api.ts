@@ -47,8 +47,6 @@ export async function del<T = void>(
   endpoint: string,
   token?: string
 ): Promise<T> {
-  console.log("DELETE from:", `${API_BASE_URL}${endpoint}`);
-
   const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: "DELETE",
     headers: {

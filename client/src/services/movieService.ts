@@ -7,7 +7,6 @@ export const fetchMovieById = async (
 ): Promise<Movie | null> => {
   try {
     const raw = await get<RawMovie>(`/movies/${movieId}`, token);
-    console.log("RAW movie data:", raw);
 
     const movie: Movie = {
       id: raw.id,

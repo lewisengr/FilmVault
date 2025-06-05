@@ -13,7 +13,6 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movieId, asCard }) => {
   useEffect(() => {
     const getMovie = async () => {
       const movieData = await fetchMovieById(movieId);
-      console.log("Fetched movie data:", movieData);
       if (movieData) {
         setMovie(movieData);
       }
