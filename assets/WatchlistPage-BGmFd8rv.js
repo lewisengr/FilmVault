@@ -1,1 +1,0 @@
-import{j as t}from"./index-DA0DEcfU.js";import{M as i}from"./MovieCollectionPage-6VdyJVev.js";import"./Navbar-CHcdGRPD.js";import"./Camera Logo-BRM9Q75y.js";import"./api-BPstxoyE.js";const p=()=>t.jsx(i,{apiPath:"watchlist",pageTitle:"Watchlist",isWatchlist:!0});export{p as default};
