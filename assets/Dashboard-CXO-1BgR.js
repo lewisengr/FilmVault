@@ -1,1 +1,0 @@
-import{j as o}from"./index-CW_5yktt.js";import{M as t}from"./MovieCollectionPage-jmt1lHGt.js";import"./Navbar-DcQspeYV.js";import"./Camera Logo-BsrNr56R.js";import"./api-BPstxoyE.js";const m=()=>o.jsx(t,{apiPath:"savedmovies",pageTitle:"Overview"});export{m as default};
