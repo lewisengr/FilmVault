@@ -47,8 +47,8 @@ export const CreateAccountPage = () => {
       />
 
       {/* Overlayed form content */}
-      <div className="relative z-10 flex w-full justify-center items-center">
-        <div className="bg-white bg-opacity-95 rounded-xl p-10 w-[460px]">
+      <div className="relative z-10 flex w-full justify-center items-center px-4">
+        <div className="bg-white bg-opacity-95 rounded-xl p-8 sm:p-10 w-full max-w-[460px] sm:w-[460px]">
           <div className="flex items-center justify-center gap-3 mb-6">
             <h1 className="text-4xl font-bold text-indigo-800">FilmVault</h1>
             <img
@@ -57,7 +57,9 @@ export const CreateAccountPage = () => {
               className="w-10 h-10"
             />
           </div>
-
+          <h2 className="text-2xl font-semibold text-center mb-6">
+            Create Your Account
+          </h2>
           <form className="space-y-6">
             <div>
               <label className="block text-sm font-medium">Name</label>
