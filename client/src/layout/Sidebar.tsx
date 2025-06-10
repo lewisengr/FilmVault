@@ -21,7 +21,7 @@ export const Sidebar = () => {
         <Link to="/dashboard" className="w-full flex justify-center">
           <NavigationItem
             icon={DashboardIcon}
-            label="Dashboard"
+            label="Vault"
             isActive={currentPath === "/dashboard"}
           />
         </Link>

@@ -15,7 +15,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     <div
       className={`flex items-center gap-4 px-7 py-4 rounded-xl w-[200px] transition ${
         isActive
-          ? "bg-violet-500 text-white font-semibold"
+          ? "bg-indigo-500 text-white font-semibold"
           : "text-slate-500 hover:bg-slate-100"
       }`}
     >

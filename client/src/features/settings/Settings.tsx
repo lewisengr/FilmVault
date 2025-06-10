@@ -1,7 +1,10 @@
 import { Sidebar } from "../../layout/Sidebar";
 import { Navbar } from "../../layout/Navbar";
+import { useState } from "react";
 
 export default function Settings() {
+  const [showSidebar, setShowSidebar] = useState(false);
+
   type SettingsCardProps = {
     title: string;
     description: string;
@@ -17,11 +20,37 @@ export default function Settings() {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-[250px] bg-white shadow-md">
+      <aside
+        className={`
+    bg-white shadow-md h-full w-[250px] z-40
+    sm:relative sm:translate-x-0 sm:transition-none
+    fixed top-0 left-0 transform transition-transform duration-300 ease-in-out
+    ${showSidebar ? "translate-x-0" : "-translate-x-full sm:translate-x-0"}
+  `}
+      >
         <Sidebar />
       </aside>
+      <button
+        onClick={() => setShowSidebar((prev) => !prev)}
+        className="sm:hidden fixed top-[90px] left-4 z-50 bg-white shadow p-2 rounded"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5m-16.5 5.25h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
 
       {/* Main content */}
       <div className="flex flex-col flex-grow">
