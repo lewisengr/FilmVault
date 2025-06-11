@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import React from "react";
 const CreateAccountPage = React.lazy(
@@ -19,6 +19,7 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/register" element={<CreateAccountPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
