@@ -1,15 +1,11 @@
 import { createContext } from "react";
 
-type AuthContextType = {
+export const AuthContext = createContext<{
   token: string;
   setToken: (token: string) => void;
-};
-
-/**
- * AuthContext provides a way to manage authentication state
- * and token management across the application.
- */
-export const AuthContext = createContext<AuthContextType>({
+  loading: boolean;
+}>({
   token: "",
   setToken: () => {},
+  loading: true,
 });
