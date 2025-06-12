@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; URL=/" />
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+      // This ensures refreshing /dashboard will rehydrate the app on that route
+      const path = location.pathname;
+      const search = location.search;
+      const hash = location.hash;
+      sessionStorage.redirect = path + search + hash;
+      window.location.href = "/";
+    </script>
   </head>
   <body>
-    <p>Redirecting to home...</p>
+    <p>Redirecting...</p>
   </body>
 </html>

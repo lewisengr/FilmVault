@@ -5,10 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/assets/Camera%20Logo-CJ3QcNzF.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FilmVault</title>
-    <script type="module" crossorigin src="/assets/index-CKEwKcYJ.js"></script>
+    <script type="module" crossorigin src="/assets/index-722XM7Yb.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-DqwHxApW.css">
   </head>
   <body>
     <div id="root"></div>
+    <script type="text/javascript">
+      if (sessionStorage.redirect) {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        history.replaceState(null, "", redirect);
+      }
+    </script>
   </body>
 </html>
