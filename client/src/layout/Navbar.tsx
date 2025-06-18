@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { useAuth } from "../hooks/useAuth";
+import userAvatar from "../assets/1144760.png";
 
 export const Navbar = ({ title }: { title?: string }) => {
   const { setToken } = useAuth();
@@ -29,7 +30,8 @@ export const Navbar = ({ title }: { title?: string }) => {
 
           <div className="relative">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/8cfcdbd633a4783969723fdd3517a1d9812d8321?placeholderIfAbsent=true&apiKey=0482add54957497c913c831a5e30795b"
+              // src="https://cdn.builder.io/api/v1/image/assets/TEMP/8cfcdbd633a4783969723fdd3517a1d9812d8321?placeholderIfAbsent=true&apiKey=0482add54957497c913c831a5e30795b" mine
+              src={userAvatar}
               alt="User avatar"
               className="cursor-pointer w-[48px] sm:w-[60px] aspect-square rounded-full object-cover"
               onClick={() => setShowDropdown((prev) => !prev)}

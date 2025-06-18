@@ -26,13 +26,10 @@ export const CreateAccountPage = () => {
       const data = await post<{ token: string }>("/Auth/register", formData);
 
       const token = data.token;
-
       setToken(token);
-      console.log("New JWT Token:", token);
-
       navigate("/dashboard");
     } catch (error) {
-      console.error("Error during registration", error);
+      console.error("Error during registration. Try again.", error);
     }
   };
 
@@ -57,7 +54,7 @@ export const CreateAccountPage = () => {
               className="w-10 h-10"
             />
           </div>
-          <h2 className="text-2xl font-semibold text-center mb-6">
+          <h2 className="text-2xl font-semibold text-center mb-6 italic">
             Create Your Account
           </h2>
           <form className="space-y-6">

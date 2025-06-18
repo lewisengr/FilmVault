@@ -29,7 +29,7 @@ const Login = () => {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError("An unexpected error occurred.");
+        setError("An unexpected error occurred. Try agian.");
       }
     }
   };
@@ -51,7 +51,7 @@ const Login = () => {
               className="w-10 h-10"
             />
           </div>
-          <h2 className="text-2xl font-semibold text-center mb-6">
+          <h2 className="text-2xl font-semibold text-center mb-6 italic">
             Log In to Your Account
           </h2>
           <form className="space-y-6" onSubmit={handleSubmit}>

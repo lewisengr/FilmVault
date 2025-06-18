@@ -15,15 +15,13 @@ namespace FilmVault.Services
     {
         private readonly IConfiguration _configuration = configuration;
         private readonly ApplicationDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+
         // Register a new user
         public AuthResponse Register(AddUserDto request)
         {
             // Check if user already exists
-            if (_dbContext.Users.Any(u => u.Email == request.Email))
-                throw new Exception("User with this email already exists");
-
-            if (string.IsNullOrEmpty(request.Password))
-                throw new Exception("Password cannot be empty.");
+            if (_dbContext.Users.Any(u => u.Email == request.Email)) throw new Exception("User with this email already exists.");
+            if (string.IsNullOrEmpty(request.Password)) throw new Exception("Password cannot be empty.");
 
             // Create a new User object
             var user = new User
@@ -33,9 +31,8 @@ namespace FilmVault.Services
                 Email = request.Email,
                 PasswordHash = HashPassword(request.Password) // Hash password before storing
             };
-
             _dbContext.Users.Add(user);
-            _dbContext.SaveChanges(); // Save to DB
+            _dbContext.SaveChanges();
 
             var token = GenerateJwtToken(user);
             return new AuthResponse { Token = token };
@@ -95,10 +92,8 @@ namespace FilmVault.Services
         public string HashPassword(string password)
         {
             byte[] salt = new byte[16];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
+            using (var rng = RandomNumberGenerator.Create()) { rng.GetBytes(salt); }
+
             byte[] hash = KeyDerivation.Pbkdf2(
                 password: password!,
                 salt: salt,
@@ -116,8 +111,8 @@ namespace FilmVault.Services
             if (string.IsNullOrEmpty(enteredPassword)) return false;
 
             byte[] storedBytes = Convert.FromBase64String(storedHash);
-            byte[] salt = storedBytes.Take(16).ToArray();
-            byte[] storedPasswordHash = storedBytes.Skip(16).ToArray();
+            byte[] salt = [.. storedBytes.Take(16)];
+            byte[] storedPasswordHash = [.. storedBytes.Skip(16)];
             byte[] hash = KeyDerivation.Pbkdf2(
                 password: enteredPassword!,
                 salt: salt,

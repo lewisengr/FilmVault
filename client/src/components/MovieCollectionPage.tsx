@@ -51,7 +51,8 @@ const MovieCollectionPage = ({
         );
         setMovies(fetched.filter(Boolean));
       } catch (err) {
-        console.error(`Failed to load ${apiPath}`, err);
+        // console.error(`Failed to load ${apiPath}`, err);
+        console.error("Something went wrong. Try again.", err);
       }
     };
 

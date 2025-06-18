@@ -11,9 +11,9 @@ namespace FilmVault.Models.Entities
         public required string Username { get; set; }
         [EmailAddress]
         public required string Email { get; set; }
-        [NotMapped] // Password never stored in database
+        [NotMapped] // never stored in database
         [StringLength(100, MinimumLength = 3)]
         public string? Password { get; set; }
-        public string? PasswordHash { get; set; } // PasswordHash stored in database
+        public string? PasswordHash { get; set; } // stored in database
     }
 }
