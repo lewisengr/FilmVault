@@ -59,9 +59,8 @@ export const Navbar = ({ title }: { title?: string }) => {
 
       <div className="h-px bg-slate-200 w-full" />
 
-      {/* Confirmation Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-[300px]">
             <h3 className="text-lg font-semibold mb-4 text-slate-800">
               Are you sure you want to log out?

@@ -1,11 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import React from "react";
-const CreateAccountPage = React.lazy(
-  () => import("./features/auth/CreateAccountPage")
-);
+import React, { Suspense } from "react";
+const AuthPage = React.lazy(() => import("./features/auth/AuthPage"));
 const Dashboard = React.lazy(() => import("./features/dashboard/Dashboard"));
-const Login = React.lazy(() => import("./features/auth/LoginPage"));
 const Settings = React.lazy(() => import("./features/settings/Settings"));
 const FindMoviesPage = React.lazy(
   () => import("./features/find/FindMoviesPage")
@@ -19,22 +16,33 @@ const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<CreateAccountPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/searchall" element={<FindMoviesPage />} />
-          <Route path="/watchlist" element={<WatchlistPage />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
+        <Suspense
+          fallback={
+            <div className="flex h-screen w-full items-center justify-center">
+              <div>Loading...</div>
+            </div>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/login" element={<AuthPage initialMode="login" />} />
+            <Route
+              path="/register"
+              element={<AuthPage initialMode="register" />}
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/searchall" element={<FindMoviesPage />} />
+            <Route path="/watchlist" element={<WatchlistPage />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   );
