@@ -180,7 +180,7 @@ const MovieCollectionPage = ({
       )}
 
       {selectedMovie && (
-        <div className="fixed inset-0 backdrop-blur-sm bg-slate-700/25 flex items-center justify-center z-50">
+        <div className="fixed inset-0 backdrop-blur-sm bg-slate-700/25 flex items-center justify-center z-50 px-4">
           <div className="bg-white p-6 rounded-xl shadow-2xl max-w-4xl w-full flex flex-col gap-6 relative">
             <button
               className="absolute top-4 right-4 text-xl font-bold text-indigo-700 hover:text-indigo-900"
