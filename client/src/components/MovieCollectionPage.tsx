@@ -14,6 +14,12 @@ interface MovieCollectionPageProps {
   isWatchlist?: boolean;
 }
 
+/**
+ * MovieCollectionPage component displays a collection of movies
+ * fetched from the server, allowing users to sort, add, and remove movies.
+ * @param param0 - Props for the MovieCollectionPage component.
+ * @returns - A JSX element displaying a collection of movies with options to sort, add, and remove movies.
+ */
 const MovieCollectionPage = ({
   apiPath,
   pageTitle,

@@ -12,6 +12,10 @@ const WatchlistPage = React.lazy(
 );
 import PrivateRoute from "./utils/PrivateRoute";
 
+/**
+ * Main App component that sets up the routing and authentication context.
+ * It uses React Router for navigation and lazy loading for performance.
+ */
 const App = () => {
   return (
     <AuthProvider>

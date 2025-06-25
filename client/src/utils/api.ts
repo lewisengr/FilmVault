@@ -1,6 +1,18 @@
+/**
+ * Utility functions for making API requests.
+ * These functions handle POST, GET, and DELETE requests to a specified API base URL.
+ */
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "https://localhost:7170/api";
 
+/**
+ * Makes a POST request to the specified API endpoint with the provided data.
+ * @param endpoint - The API endpoint to which the request is made.
+ * @param data - The data to be sent in the body of the POST request.
+ * @param token - Optional authentication token for the request.
+ * @returns A Promise that resolves to the response data of type T.
+ * @throws Throws an error if the request fails, including the endpoint and error message.
+ */
 export async function post<T>(
   endpoint: string,
   data: unknown,

@@ -1,3 +1,7 @@
+/**
+ * Movie interface for representing movie data.
+ * This interface is used throughout the application to ensure type safety
+ */
 export interface Movie {
   id: number;
   title: string;
@@ -8,7 +12,9 @@ export interface Movie {
   fullPosterPath: string | null;
 }
 
-// Only for raw TMDb API responses
+/**
+ * RawMovie interface for representing raw movie data from the TMDb API.
+ */
 export interface RawMovie {
   id: number;
   title: string;

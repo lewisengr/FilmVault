@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContextInstance";
 
+/**
+ * AuthProvider component to manage authentication state.
+ * It initializes the token from localStorage and provides
+ * methods to set the token and check loading state.
+ */
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setTokenState] = useState("");
   const [loading, setLoading] = useState(true);

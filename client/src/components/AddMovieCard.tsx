@@ -1,3 +1,9 @@
+/**
+ *
+ * @param param0 { onClick }: { onClick: () => void }
+ * @description A component that renders a card for adding a movie.
+ * It displays a plus sign inside a styled box and triggers the onClick function when clicked.
+ */
 export const AddMovieCard = ({ onClick }: { onClick: () => void }) => {
   return (
     <div

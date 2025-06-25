@@ -1,6 +1,13 @@
 import { Movie, RawMovie } from "../types/Movie";
 import { get } from "../utils/api";
 
+/**
+ * Fetches a movie by its ID from the API.
+ * @param movieId - The ID of the movie to fetch.
+ * @param token - Optional authentication token for API access.
+ * @returns A Promise that resolves to a Movie object or null if the movie is not found.
+ * @throws Will log an error to the console if the fetch fails.
+ */
 export const fetchMovieById = async (
   movieId: number,
   token?: string

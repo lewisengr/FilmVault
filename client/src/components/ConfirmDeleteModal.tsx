@@ -4,6 +4,12 @@ type ConfirmDeleteModalProps = {
   onCancel: () => void;
 };
 
+/**
+ *
+ * @param param0 { movieTitle, onConfirm, onCancel }
+ * @description A modal component that confirms the deletion of a movie.
+ * @returns JSX element representing the confirmation modal.
+ */
 const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
   movieTitle,
   onConfirm,

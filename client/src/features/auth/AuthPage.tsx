@@ -10,6 +10,11 @@ interface AuthPageProps {
   initialMode?: "login" | "register";
 }
 
+/**
+ * AuthPage component for user authentication (login/register).
+ * It handles both login and registration modes, form submission,
+ * and error handling.
+ */
 const AuthPage: React.FC<AuthPageProps> = ({ initialMode = "login" }) => {
   const [mode, setMode] = useState(initialMode);
   const [formData, setFormData] = React.useState({
@@ -62,11 +67,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ initialMode = "login" }) => {
 
   const toggleMode = () => {
     setError("");
-    // In a real app with React Router, navigation would handle the mode change.
-    // For this mock, we'll just toggle the state.
-    setMode(isLogin ? "register" : "login");
-    // To see the effect in a routed app, you would do:
-    // navigate(isLogin ? '/register' : '/login');
+    navigate(isLogin ? "/register" : "/login");
   };
 
   return (
@@ -164,7 +165,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ initialMode = "login" }) => {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                   </svg>
-                  Processing...
+                  Loading...
                 </>
               ) : isLogin ? (
                 "Log In"
